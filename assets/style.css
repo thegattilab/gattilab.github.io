@@ -1,0 +1,182 @@
+@font-face {
+  font-family: "Young Serif";
+  src: url("fonts/young-serif.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* Bone version (index.html). Each colour is named by its job. */
+:root {
+  --paper: #f4eee0;     /* page background */
+  --ink: #00274c;       /* big serif words */
+  --small: #00274c;     /* small mono words */
+  --maize: #ffcb05;     /* sticker, @ badge, bones */
+  --on-maize: #00274c;  /* words and outlines on maize */
+  --shadow: #00274c;    /* sticker shadow */
+  --ring: #00274c;      /* contour rings */
+  --serif: "Young Serif", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+/* Blue version (blue.html). Maize type, with blueprint-white details. */
+body.blue {
+  --paper: #00274c;
+  --ink: #ffcb05;
+  --small: #f4eee0;
+  --shadow: #f4eee0;
+  --ring: #f4eee0;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--small);
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 4px; }
+:focus-visible { outline: 3px solid var(--small); outline-offset: 3px; }
+.recruit :focus-visible { outline-color: var(--on-maize); }
+
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  column-gap: clamp(2rem, 4vw, 5rem);
+  row-gap: 1.5rem;
+  min-height: 100vh;
+  min-height: 100svh;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+
+.words { align-self: center; }
+
+h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+h1 span { display: block; white-space: nowrap; }
+
+.lab { font-size: clamp(3rem, 7vw, 7.25rem); }
+.uni { font-size: clamp(1.7rem, 3.75vw, 3.9rem); }
+
+h1 .at {
+  display: grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.25em 0;
+  padding-bottom: 0.08em;
+  border-radius: 50%;
+  background: var(--maize);
+  color: var(--on-maize);
+  font-size: clamp(1.3rem, 2.2vw, 2.2rem);
+}
+
+.mission {
+  margin: clamp(1.75rem, 3vw, 3rem) 0 0;
+  max-width: 40ch;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 1.75vw, 1.65rem);
+  line-height: 1.25;
+}
+
+/* The recruiting note is a sticker slapped onto the page. */
+.recruit {
+  display: inline-block;
+  max-width: 34rem;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+  padding: 1.15rem 1.4rem 1.25rem;
+  background: var(--maize);
+  color: var(--on-maize);
+  transform: rotate(-1.2deg);
+  box-shadow: 5px 5px 0 var(--shadow);
+}
+.recruit h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 2.3vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+.when { margin: 0.2rem 0 0.8rem; font-weight: 500; }
+.recruit ul { margin: 0; padding: 0; list-style: none; }
+.recruit li + li { margin-top: 0.45rem; }
+.recruit a { font-weight: 500; }
+
+.fig {
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+  max-width: calc((100svh - 11rem) * 0.68);
+  margin: 0;
+}
+#morph { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* Stacked strokes on one path. A thick stroke with round joins is an exact
+   distance offset, so these rings are level sets of the distance to the bones. */
+#morph use { fill: none; stroke-linejoin: round; }
+#morph .bones { fill: var(--maize); stroke: var(--on-maize); stroke-width: 4; }
+
+figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 0.9rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+#pause {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+#pause[hidden] { display: none; }
+
+footer {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 860px) {
+  .page {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+  .lab { font-size: clamp(2.5rem, 13vw, 6rem); }
+  .uni { font-size: clamp(1.4rem, 7vw, 3.3rem); }
+  .at { font-size: clamp(1.3rem, 5vw, 2rem); }
+  .fig { max-width: 20rem; }
+  .recruit { display: block; }
+}
